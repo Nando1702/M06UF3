@@ -1,7 +1,9 @@
 package com.FernandoHidalgo.GestioBandas.Backend.business.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -10,19 +12,19 @@ public class Bandas implements Serializable{
 	private Long id;
 	private String nom;
 	private String generoPrincipal;
-	private Optional<String[]> generosSecundarios;
-	private Date fechaFundacion;
+	private Optional<List<String>> generosSecundarios;
+	private LocalDate fechaFundacion;
 	private String paisOrigen;
 	private Boolean isActive;
 	
-	public Bandas(Long id, String nom, String generoPrincipal, Optional<String[]> generosSecundarios,
-			Date fechaFundacion, String paisOrigen, Boolean isActive) {
+	public Bandas(Long id, String nom, String generoPrincipal, Optional<List<String>> generosSecundariosBanda1,
+			LocalDate fechaFundacionBanda1, String paisOrigen, Boolean isActive) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.generoPrincipal = generoPrincipal;
-		this.generosSecundarios = generosSecundarios;
-		this.fechaFundacion = fechaFundacion;
+		this.generosSecundarios = generosSecundariosBanda1;
+		this.fechaFundacion = fechaFundacionBanda1;
 		this.paisOrigen = paisOrigen;
 		this.isActive = isActive;
 	}
@@ -51,19 +53,19 @@ public class Bandas implements Serializable{
 		this.generoPrincipal = generoPrincipal;
 	}
 
-	public Optional<String[]> getGenerosSecundarios() {
+	public Optional<List<String>> getGenerosSecundarios() {
 		return generosSecundarios;
 	}
 
-	public void setGenerosSecundarios(Optional<String[]> generosSecundarios) {
+	public void setGenerosSecundarios(Optional<List<String>> generosSecundarios) {
 		this.generosSecundarios = generosSecundarios;
 	}
 
-	public Date getFechaFundacion() {
+	public LocalDate getFechaFundacion() {
 		return fechaFundacion;
 	}
 
-	public void setFechaFundacion(Date fechaFundacion) {
+	public void setFechaFundacion(LocalDate fechaFundacion) {
 		this.fechaFundacion = fechaFundacion;
 	}
 
