@@ -1,6 +1,5 @@
 package com.fernandoHidalgo.gestionBandas.backend.presentation.restcontrollers;
 
-
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -37,10 +36,6 @@ public class BandaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> read(@PathVariable Long id) {
-        if (id > 500) {
-            throw new RuntimeException("El número " + id + " no es válido.");
-        }
-
         Optional<Bandas> optional = bandaServices.read(id);
 
         if (!optional.isPresent()) {
@@ -51,7 +46,7 @@ public class BandaController {
         return ResponseEntity.ok(optional.get());
     }
 
-    @PostMapping("/crear")
+    @PostMapping
     public ResponseEntity<?> create(@RequestBody Bandas banda) {
         Long codigo = null;
 

@@ -1,62 +1,48 @@
 package com.fernandoHidalgo.gestionBandas.backend.business.services;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.TreeMap;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fernandoHidalgo.gestionBandas.backend.business.model.Bandas;
+import com.fernandoHidalgo.gestionBandas.backend.integration.repositories.BandasRepository;
 
 @Service
 public class BandaServices {
 
-    private final TreeMap<Long, Bandas> BANDAS = new TreeMap<>();
+    @Autowired
+    private BandasRepository bandasRepository;
 
-    public BandaServices() {
-       
-    }
-
+    @Transactional
     public Long create(Bandas banda) {
-        Long id = BANDAS.lastKey() + 1;
-        banda.setId(id);
-        BANDAS.put(banda.getId(), banda);
-        return id;
+        if (banda.getId() != null) {
+            throw new IllegalStateException("No se puede crear una banda con un ID no nulo");
+        }
+        return bandasRepository.save(banda).getId();
     }
 
     public Optional<Bandas> read(Long id) {
-        return Optional.ofNullable(BANDAS.get(id));
+        return bandasRepository.findById(id);
+    }
+
+    @Transactional
+    public void update(Bandas banda) {
+        if (banda.getId() == null) {
+            throw new IllegalStateException("La banda debe tener un ID para ser actualizada");
+        }
+        bandasRepository.save(banda);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        bandasRepository.deleteById(id);
     }
 
     public List<Bandas> getAll() {
-        return new ArrayList<>(BANDAS.values());
+        return bandasRepository.findAll();
     }
-
-    public void update(Bandas banda) {
-        if (banda.getId() == null) {
-            throw new IllegalArgumentException("La banda debe tener un ID para ser actualizada");
-        }
-
-        if (!BANDAS.containsKey(banda.getId())) {
-            throw new IllegalArgumentException("No se puede encontrar la banda con el ID especificado para actualizar");
-        }
-
-        BANDAS.put(banda.getId(), banda);
-    }
-
-    public void delete(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("No se puede eliminar una banda con un ID nulo");
-        }
-
-        if (!BANDAS.containsKey(id)) {
-            throw new IllegalArgumentException("No se puede encontrar la banda con el ID especificado para eliminar");
-        }
-
-        BANDAS.remove(id);
-    }
-
-   
 }
