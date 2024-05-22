@@ -29,8 +29,20 @@ public class Bandas implements Serializable {
 
     public Bandas() {
     }
+    
 
-    public Bandas(Long id, String nom, String generoPrincipal, LocalDate fechaFundacion, String paisOrigen, Boolean isActive) {
+    public Bandas(String nom, String genero, LocalDate fecha, String pais, Boolean activos) {
+		super();
+		this.nom = nom;
+		this.genero = genero;
+		this.fecha = fecha;
+		this.pais = pais;
+		this.activos = activos;
+	}
+
+
+
+	public Bandas(Long id, String nom, String generoPrincipal, LocalDate fechaFundacion, String paisOrigen, Boolean isActive) {
         this.id = id;
         this.nom = nom;
         this.genero = generoPrincipal;
