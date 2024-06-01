@@ -41,11 +41,11 @@ public class BandasRepositoryTest {
 
     @Test
     public void testFindByGenero() {
-        List<Bandas> result = bandasRepository.findByGenero("Rock");
-        assertEquals(1, result.size());
-        assertTrue(banda1.equals(result.get(0)));
+        List<Bandas> result = bandasRepository.findByGenero("Grunge");
+        assertEquals(2, result.size());  
+        assertTrue(result.contains(banda2)); 
     }
-
+    
     @Test
     public void testFindByPais() {
         List<Bandas> result = bandasRepository.findByPais("USA");
